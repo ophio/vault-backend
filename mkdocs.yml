@@ -1,0 +1,13 @@
+# see: https://github.com/tomchristie/mkdocs/blob/master/mkdocs.yml
+site_name: Vault
+site_description: Share collective knowledge !
+
+pages:
+- ['index.md', 'Home']
+- ['deploy.md', 'Deploy']
+
+theme: 'mkdocs'
+theme_center_lead: true
+
+# directory to output HTML build
+site_dir: _docs_html

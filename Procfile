@@ -1,0 +1,1 @@
+web: gunicorn --pythonpath="$PWD/vault-backend" wsgi:application
