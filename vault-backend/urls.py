@@ -26,7 +26,7 @@ urlpatterns = patterns('',
     # url(r'^users/', include("users.urls", namespace="users")),
 
     # REST API
-    # url(r'^api/', include('api.urls')),
+    url(r'^api/', include('api.urls')),
 
     # Your stuff: custom urls go here
 

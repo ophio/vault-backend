@@ -27,3 +27,6 @@ django-autoslug==1.7.2
 
 # Your custom common requirements goes here
 django-uuidfield==0.5.0
+
+# Rest API
+djangorestframework==2.3.14
