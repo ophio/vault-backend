@@ -42,6 +42,8 @@ class Common(Configuration):
 
     LOCAL_APPS = (
         # Your stuff: custom apps go here
+        'common', # Common Utils
+        'users', # Custom Users App
         'pages',
     )
 
@@ -92,11 +94,6 @@ class Common(Configuration):
     # EMAIL CONFIGURATION
     EMAIL_BACKEND = values.Value('django.core.mail.backends.smtp.EmailBackend')
     # END EMAIL CONFIGURATION
-
-    # DATABASE CONFIGURATION
-    # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
-    DATABASES = values.DatabaseURLValue('postgres://vault-backend@localhost/vault-backend')
-    # END DATABASE CONFIGURATION
 
     SITE_ID = 1
 
@@ -181,6 +178,8 @@ class Common(Configuration):
     # End URL Configuration
 
     # AUTHENTICATION CONFIGURATION
+    AUTH_USER_MODEL = 'users.User'
+
     AUTHENTICATION_BACKENDS = (
         "django.contrib.auth.backends.ModelBackend",
     )

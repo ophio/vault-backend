@@ -48,4 +48,9 @@ class Development(Common):
     }
     # END OF CACHES
 
+    # DATABASE CONFIGURATION
+    # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
+    DATABASES = values.DatabaseURLValue('postgres://vault:vault@localhost/vault_backend')
+    # END DATABASE CONFIGURATION
+
     # Your local stuff: Below this line define 3rd party libary settings
