@@ -44,6 +44,7 @@ class Common(Configuration):
         # Your stuff: custom apps go here
         'common', # Common Utils
         'users', # Custom Users App
+        'core', # Vault Core
         'pages',
     )
 
