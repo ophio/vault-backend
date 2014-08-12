@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, division
-from rest_framework import generics, viewsets, status, permissions, filters
+from rest_framework import generics, status, permissions, filters
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
 from django.db.models import Count
 
-from api.serializers import PlatformSerializer
+from api.serializers import PlatformSerializer, DeveloperSerializer, LibrarySerializer, LibraryVersionSerializer
 
-from core.models import Platform
+from api.viewsets import UUIDModelViewset, UUIDReadOnlyModelViewset
+
+from api.filters import LibraryFilterBackend
+
+from core.models import Platform, Developer, Library, LibraryVersion
 
 from datetime import datetime
 
@@ -21,9 +25,24 @@ def api_root(request, format=None):
 
     List of api endpoints for this Project.
 
+    ### SignUp
+
+    POST at sign-up's url (/api/sign-up/) to register a user.
+
+    payload = {
+        "name": "<NAME>",
+        "email": "<EMAIL>",
+        "password": "<RAW_PASSWORD">
+    }
+
     ### Authentication
 
-    Visit auth-token's url to obtain a JSON-Web Token. `BasicAuth` is also supported.
+    POST at auth-token's url (/api/auth-token/) to obtain a JSON-Web Token. `BasicAuth` is also supported.
+
+    payload = {
+        "username": "<EMAIL>",
+        "password": "<RAW_PASSWORD">
+    }
 
     ### Errors
 
@@ -34,14 +53,48 @@ def api_root(request, format=None):
     return Response({
         'api_root': reverse('api_root', request=request, format=format),
         'platforms': reverse('api_platforms-list', request=request, format=format),
+        # 'sign-up': reverse('api_signup', request=request, format=format),
+        'developers': reverse('api_developers-list', request=request, format=format),
+        'libraries': reverse('api_libraries-list', request=request, format=format),
+        'versions': reverse('api_versions-list', request=request, format=format),
     })
 
-
-
-class PlatformViewSet(viewsets.ReadOnlyModelViewSet):
+class PlatformViewSet(UUIDReadOnlyModelViewset):
     '''
-    Endpoint to get and update profile of a `User`.
+    ### List of available platforms on Vault.
+
+    ## Paginated Call
+
+    response = {
+        "count": "<TOTAL_COUNT>"
+        "next": "<NEXT_PAGE_URL>"
+        "previous": "<PREVIOUS_PAGE_URL>"
+        "results": "<OBJECTS>"
+    }
+
     '''
     model = Platform
     serializer_class = PlatformSerializer
     permission_classes = ((permissions.AllowAny),)
+    paginate_by = 20
+
+class DeveloperViewSet(UUIDReadOnlyModelViewset):
+    model = Developer
+    serializer_class = DeveloperSerializer
+    permission_classes = ((permissions.AllowAny),)
+    paginate_by = 20
+
+
+class LibraryViewSet(UUIDModelViewset):
+    model = Library
+    serializer_class = LibrarySerializer
+    permission_classes = ((permissions.AllowAny),)
+    filter_backends = (LibraryFilterBackend,)
+    paginate_by = 20
+
+
+class LibraryVersionViewSet(UUIDModelViewset):
+    model = LibraryVersion
+    serializer_class = LibraryVersionSerializer
+    permission_classes = ((permissions.AllowAny),)
+    paginate_by = 20
