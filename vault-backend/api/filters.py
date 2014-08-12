@@ -14,11 +14,9 @@ class LibraryFilterBackend(filters.BaseFilterBackend):
                 platform = Platform.objects.get(name__iexact=platform_name)
                 queryset = queryset.filter(platform=platform)
             except Platform.DoesNotExist:
-                pass
+                return queryset.none()
 
         if query_string is not None:
             queryset = queryset.filter(name__icontains=query_string)
-        else:
-            queryset = queryset.none()
 
         return queryset

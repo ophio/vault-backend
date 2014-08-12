@@ -7,13 +7,13 @@ from rest_framework.reverse import reverse
 
 from django.db.models import Count
 
-from api.serializers import PlatformSerializer, DeveloperSerializer, LibrarySerializer, LibraryVersionSerializer
+from api.serializers import PlatformSerializer, ProjectSerializer, DeveloperSerializer, LibrarySerializer, LibraryVersionSerializer, PostSerializer
 
 from api.viewsets import UUIDModelViewset, UUIDReadOnlyModelViewset
 
 from api.filters import LibraryFilterBackend
 
-from core.models import Platform, Developer, Library, LibraryVersion
+from core.models import Platform, Project, Developer, Library, LibraryVersion, Post
 
 from datetime import datetime
 
@@ -53,10 +53,12 @@ def api_root(request, format=None):
     return Response({
         'api_root': reverse('api_root', request=request, format=format),
         'platforms': reverse('api_platforms-list', request=request, format=format),
+        'projects': reverse('api_projects-list', request=request, format=format),
         # 'sign-up': reverse('api_signup', request=request, format=format),
         'developers': reverse('api_developers-list', request=request, format=format),
         'libraries': reverse('api_libraries-list', request=request, format=format),
         'versions': reverse('api_versions-list', request=request, format=format),
+        'posts': reverse('api_posts-list', request=request, format=format),
     })
 
 class PlatformViewSet(UUIDReadOnlyModelViewset):
@@ -78,6 +80,25 @@ class PlatformViewSet(UUIDReadOnlyModelViewset):
     permission_classes = ((permissions.AllowAny),)
     paginate_by = 20
 
+class ProjectViewSet(UUIDReadOnlyModelViewset):
+    '''
+    ### List of available Projects on Vault.
+
+    ## Paginated Call
+
+    response = {
+        "count": "<TOTAL_COUNT>"
+        "next": "<NEXT_PAGE_URL>"
+        "previous": "<PREVIOUS_PAGE_URL>"
+        "results": "<OBJECTS>"
+    }
+
+    '''
+    model = Project
+    serializer_class = ProjectSerializer
+    permission_classes = ((permissions.AllowAny),)
+    paginate_by = 20
+
 class DeveloperViewSet(UUIDReadOnlyModelViewset):
     model = Developer
     serializer_class = DeveloperSerializer
@@ -96,5 +117,12 @@ class LibraryViewSet(UUIDModelViewset):
 class LibraryVersionViewSet(UUIDModelViewset):
     model = LibraryVersion
     serializer_class = LibraryVersionSerializer
+    permission_classes = ((permissions.AllowAny),)
+    paginate_by = 20
+
+
+class PostViewSet(UUIDModelViewset):
+    model = Post
+    serializer_class = PostSerializer
     permission_classes = ((permissions.AllowAny),)
     paginate_by = 20

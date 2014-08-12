@@ -2,7 +2,7 @@
 
 from rest_framework import serializers
 
-from core.models import Platform, Developer, Library, LibraryVersion
+from core.models import Platform, Developer, Project, Library, LibraryVersion, Post
 
 class PlatformSerializer(serializers.ModelSerializer):
 
@@ -18,7 +18,15 @@ class DeveloperSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'email')
 
 
+class ProjectSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Project
+        fields = ('id', 'name')
+
+
 class LibrarySerializer(serializers.ModelSerializer):
+    platform = PlatformSerializer()
 
     class Meta:
         model = Library
@@ -31,3 +39,12 @@ class LibraryVersionSerializer(serializers.ModelSerializer):
     class Meta:
         model = LibraryVersion
         fields = ('id', 'library', 'version', 'link')
+
+
+class PostSerializer(serializers.ModelSerializer):
+    library = LibraryVersionSerializer()
+    developer = DeveloperSerializer()
+
+    class Meta:
+        model = Post
+        fields = ('id', 'library', 'description', 'developer')

@@ -5,7 +5,7 @@ from django.conf.urls import url, patterns, include
 from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework.routers import DefaultRouter
 
-from api.views import PlatformViewSet, DeveloperViewSet, LibraryViewSet, LibraryVersionViewSet
+from api.views import PlatformViewSet, ProjectViewSet, DeveloperViewSet, LibraryViewSet, LibraryVersionViewSet, PostViewSet
 
 # Wire up our API using automatic URL routing.
 # Additionally, include login URLs for the browseable API.
@@ -20,8 +20,10 @@ urlpatterns += patterns('',
 
 router = DefaultRouter()
 router.register(r'platforms', PlatformViewSet, base_name='api_platforms')
+router.register(r'projects', ProjectViewSet, base_name='api_projects')
 router.register(r'developers', DeveloperViewSet, base_name='api_developers')
 router.register(r'libraries', LibraryViewSet, base_name='api_libraries')
 router.register(r'versions', LibraryVersionViewSet, base_name='api_versions')
+router.register(r'posts', PostViewSet, base_name='api_posts')
 
 urlpatterns += router.urls
