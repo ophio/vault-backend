@@ -53,9 +53,9 @@ class Production(Common):
 
     STATICFILES_STORAGE = DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-    AWS_ACCESS_KEY_ID = values.SecretValue()
-    AWS_SECRET_ACCESS_KEY = values.SecretValue()
-    AWS_STORAGE_BUCKET_NAME = values.SecretValue()
+    AWS_ACCESS_KEY_ID = values.Value('AKIAI5N7WZ4RGDQLPWRQ')
+    AWS_SECRET_ACCESS_KEY = values.Value('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')
+    AWS_STORAGE_BUCKET_NAME = values.Value('vault-backend')
     AWS_AUTO_CREATE_BUCKET = True
     AWS_QUERYSTRING_AUTH = False
 
