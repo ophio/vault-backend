@@ -57,14 +57,15 @@ class LibraryVersionCreateSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     library = LibraryVersionSerializer()
     developer = DeveloperSerializer()
+    project = ProjectSerializer()
 
     class Meta:
         model = Post
-        fields = ('id', 'library', 'description', 'developer')
+        fields = ('id', 'library', 'description', 'developer', 'project')
 
 
 class PostCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ('id', 'library', 'description', 'developer')
+        fields = ('id', 'library', 'description', 'developer', 'project')
