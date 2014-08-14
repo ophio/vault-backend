@@ -15,7 +15,7 @@ class Production(Common):
     # END INSTALLED_APPS
 
     # SECRET KEY
-    SECRET_KEY = values.SecretValue()
+    SECRET_KEY = values.Value('ooo4($xhbk+a!r&cjp=)hj8*n3@jxjzx1pd)o#-&(=#8$tl_d*')
     # END SECRET KEY
 
     # django-secure
