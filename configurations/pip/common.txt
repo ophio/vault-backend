@@ -33,3 +33,7 @@ djangorestframework==2.3.14
 
 # Allow Cross Origin Requests
 django-cors-headers==0.12
+
+# Celery and Redis for Distributed Task Queue
+celery==3.1.13
+redis==2.10.1
