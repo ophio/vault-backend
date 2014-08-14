@@ -80,7 +80,7 @@ class PlatformViewSet(UUIDReadOnlyModelViewset):
     permission_classes = ((permissions.AllowAny),)
     paginate_by = 20
 
-class ProjectViewSet(UUIDReadOnlyModelViewset):
+class ProjectViewSet(UUIDModelViewset):
     '''
     ### List of available Projects on Vault.
 
