@@ -104,3 +104,8 @@ class Production(Common):
     # END TEMPLATE CONFIGURATION
 
     # Your production stuff: Below this line define 3rd party libary settings
+
+    # DATABASE CONFIGURATION
+    # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
+    DATABASES = values.DatabaseURLValue('postgres://vault_user:password@localhost/vault_backend')
+    # END DATABASE CONFIGURATION
