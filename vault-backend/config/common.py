@@ -39,6 +39,7 @@ class Common(Configuration):
         'south',  # Database migration helpers
         'django_extensions',  # http://django-extensions.readthedocs.org/
         'rest_framework', # Awesome Browsable REST API
+        'corsheaders', # Allow Cross Origin Requests
     )
 
     LOCAL_APPS = (
@@ -56,6 +57,7 @@ class Common(Configuration):
     # Note: Order in which they are added are important
     MIDDLEWARE_CLASSES = (
         'django.contrib.sessions.middleware.SessionMiddleware',
+        'corsheaders.middleware.CorsMiddleware', # CORS HEADERS
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -181,6 +183,7 @@ class Common(Configuration):
 
     # AUTHENTICATION CONFIGURATION
     AUTH_USER_MODEL = 'users.User'
+    CORS_ORIGIN_ALLOW_ALL = True
 
     AUTHENTICATION_BACKENDS = (
         "django.contrib.auth.backends.ModelBackend",

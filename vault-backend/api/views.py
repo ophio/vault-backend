@@ -7,11 +7,11 @@ from rest_framework.reverse import reverse
 
 from django.db.models import Count
 
-from api.serializers import PlatformSerializer, ProjectSerializer, DeveloperSerializer, LibrarySerializer, LibraryVersionSerializer, PostSerializer
+from api.serializers import PlatformSerializer, ProjectSerializer, DeveloperSerializer, LibrarySerializer, LibraryCreateSerializer, LibraryVersionSerializer, PostSerializer
 
 from api.viewsets import UUIDModelViewset, UUIDReadOnlyModelViewset
 
-from api.filters import LibraryFilterBackend
+from api.filters import PlatformFilterBackend, LibraryFilterBackend, LibraryVersionFilterBackend
 
 from core.models import Platform, Project, Developer, Library, LibraryVersion, Post
 
@@ -110,14 +110,19 @@ class LibraryViewSet(UUIDModelViewset):
     model = Library
     serializer_class = LibrarySerializer
     permission_classes = ((permissions.AllowAny),)
-    filter_backends = (LibraryFilterBackend,)
+    filter_backends = (PlatformFilterBackend,)
     paginate_by = 20
+
+    def create(self, request, *args, **kwargs):
+        self.serializer_class = LibraryCreateSerializer
+        return super(LibraryViewSet, self).create(request, *args, **kwargs)
 
 
 class LibraryVersionViewSet(UUIDModelViewset):
     model = LibraryVersion
     serializer_class = LibraryVersionSerializer
     permission_classes = ((permissions.AllowAny),)
+    filter_backends = (PlatformFilterBackend, LibraryFilterBackend)
     paginate_by = 20
 
 
@@ -125,4 +130,5 @@ class PostViewSet(UUIDModelViewset):
     model = Post
     serializer_class = PostSerializer
     permission_classes = ((permissions.AllowAny),)
+    filter_backends = (PlatformFilterBackend, LibraryFilterBackend, LibraryVersionFilterBackend)
     paginate_by = 20
