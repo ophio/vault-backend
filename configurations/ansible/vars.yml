@@ -2,4 +2,6 @@
 project_name: vault-backend
 project_repo_url: git@github.com:ophio/vault-backend.git
 project_repo_remote: origin
-server_name: vault.ophio.co.in
+project_path: /home/{{user}}/vault-backend
+domain_name: vault.ophio.co.in
+celery_app: config

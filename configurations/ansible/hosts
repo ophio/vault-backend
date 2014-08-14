@@ -5,5 +5,18 @@
 vm=1
 user=vagrant
 django_configuration_settings=Development
-project_path=/home/vagrant/vault-backend
-django_requirements_file: configurations/pip/development.txt
+project_path=/home/ubuntu/vault-backend
+django_requirements_file=configurations/pip/development.txt
+
+[production]
+vault-backend
+
+[production:vars]
+user=ubuntu
+project_path=/home/ubuntu/vault-backend
+repo_version=dev
+django_requirements_file=configurations/pip/production.txt
+django_configuration=Production
+pg_db=vault_backend
+pg_user=vault_user
+pg_password=password
