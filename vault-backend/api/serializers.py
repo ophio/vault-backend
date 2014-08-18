@@ -48,10 +48,11 @@ class LibraryCreateSerializer(serializers.ModelSerializer):
 
 class LibraryVersionSerializer(serializers.ModelSerializer):
     library = LibrarySerializer()
+    name = serializers.Field(source='version')
 
     class Meta:
         model = LibraryVersion
-        fields = ('id', 'library', 'version', 'link')
+        fields = ('id', 'library', 'version', 'link', 'name')
 
 
 class LibraryVersionCreateSerializer(serializers.ModelSerializer):
