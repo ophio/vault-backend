@@ -19,10 +19,17 @@ class DeveloperSerializer(serializers.ModelSerializer):
 
 
 class ProjectSerializer(serializers.ModelSerializer):
+    platform = PlatformSerializer()
+    class Meta:
+        model = Project
+        fields = ('id', 'name', 'platform')
+
+
+class ProjectCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'platform')
 
 
 class LibrarySerializer(serializers.ModelSerializer):

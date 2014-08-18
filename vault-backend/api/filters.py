@@ -13,7 +13,7 @@ class PlatformFilterBackend(filters.BaseFilterBackend):
         if platform_id is not None:
             try:
                 platform = Platform.objects.get(id=platform_id)
-                if view_model_name == 'Library':
+                if view_model_name in ['Library', 'Project']:
                     queryset = queryset.filter(platform=platform)
                 if view_model_name == 'LibraryVersion':
                     queryset = queryset.filter(library__platform=platform)
@@ -23,7 +23,7 @@ class PlatformFilterBackend(filters.BaseFilterBackend):
                 return queryset.none()
 
         if query_string is not None:
-            if view_model_name == 'Library':
+            if view_model_name in ['Library', 'Project']:
                 queryset = queryset.filter(name__icontains=query_string)
 
         return queryset

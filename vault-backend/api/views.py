@@ -7,7 +7,7 @@ from rest_framework.reverse import reverse
 
 from django.db.models import Count
 
-from api.serializers import PlatformSerializer, ProjectSerializer, DeveloperSerializer, LibrarySerializer, LibraryCreateSerializer, LibraryVersionSerializer, LibraryVersionCreateSerializer, PostSerializer, PostCreateSerializer
+from api.serializers import PlatformSerializer, ProjectSerializer, ProjectCreateSerializer, DeveloperSerializer, LibrarySerializer, LibraryCreateSerializer, LibraryVersionSerializer, LibraryVersionCreateSerializer, PostSerializer, PostCreateSerializer
 
 from api.viewsets import UUIDModelViewset, UUIDReadOnlyModelViewset
 
@@ -97,7 +97,12 @@ class ProjectViewSet(UUIDModelViewset):
     model = Project
     serializer_class = ProjectSerializer
     permission_classes = ((permissions.AllowAny),)
+    filter_backends = (PlatformFilterBackend,)
     paginate_by = 20
+
+    def create(self, request, *args, **kwargs):
+        self.serializer_class = ProjectCreateSerializer
+        return super(ProjectViewSet, self).create(request, *args, **kwargs)
 
 class DeveloperViewSet(UUIDReadOnlyModelViewset):
     model = Developer

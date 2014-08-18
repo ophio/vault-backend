@@ -31,6 +31,7 @@ class LibraryVersion(UUIDModel):
 
 class Project(UUIDModel):
     name = models.CharField(max_length=255, null=False, blank=False, unique=True)
+    platform = models.ForeignKey('core.Platform', null=True, blank=True)
 
 class Post(UUIDModel):
     library = models.ForeignKey('core.LibraryVersion', null=False, blank=False)
