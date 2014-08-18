@@ -38,7 +38,7 @@ class Post(UUIDModel):
     developer = models.ForeignKey('core.Developer', null=False, blank=False)
     project = models.ForeignKey('core.Project', null=False, blank=False)
     verified = models.BooleanField(default=False, null=False, blank=False)
-    description = models.TextField()
+    description = models.TextField(blank=True)
 
     class Meta:
         unique_together = (('library', 'project', 'developer'))
