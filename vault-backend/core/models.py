@@ -14,6 +14,7 @@ class Library(UUIDModel):
     name = models.CharField(max_length=255, null=False, blank=False, unique=True)
     platform = models.ForeignKey('core.Platform', null=False, blank=False)
     link = models.URLField(null=False, blank=False, unique=True)
+    repo_name = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
         unique_together = (('name', 'platform'))
