@@ -37,13 +37,13 @@ class LibrarySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Library
-        fields = ('id', 'name', 'platform', 'link')
+        fields = ('id', 'name', 'platform', 'link', 'repo_name')
 
 class LibraryCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Library
-        fields = ('id', 'name', 'platform', 'link')
+        fields = ('id', 'name', 'platform', 'link', 'repo_name')
 
 
 class LibraryVersionSerializer(serializers.ModelSerializer):
