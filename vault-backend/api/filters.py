@@ -1,5 +1,5 @@
 from rest_framework import filters
-from core.models import Platform, Library, LibraryVersion
+from core.models import Platform, Library, LibraryVersion, Developer, Project
 
 class PlatformFilterBackend(filters.BaseFilterBackend):
     """
@@ -62,6 +62,40 @@ class LibraryVersionFilterBackend(filters.BaseFilterBackend):
                 if view_model_name == 'Post':
                     queryset = queryset.filter(library=version)
             except LibraryVersion.DoesNotExist:
+                return queryset.none()
+
+        return queryset
+
+class DeveloperFilterBackend(filters.BaseFilterBackend):
+    """
+    Filter that filters objects based on their Developer
+    """
+    def filter_queryset(self, request, queryset, view):
+        view_model_name = view.model.__name__
+        developer_id = request.QUERY_PARAMS.get('developer', None)
+
+        if developer_id is not None:
+            try:
+                developer = Developer.objects.get(id=developer_id)
+                queryset = queryset.filter(developer=developer)
+            except Developer.DoesNotExist:
+                return queryset.none()
+
+        return queryset
+
+class ProjectFilterBackend(filters.BaseFilterBackend):
+    """
+    Filter that filters objects based on their Project
+    """
+    def filter_queryset(self, request, queryset, view):
+        view_model_name = view.model.__name__
+        project_id = request.QUERY_PARAMS.get('project', None)
+
+        if project_id is not None:
+            try:
+                project = Project.objects.get(id=project_id)
+                queryset = queryset.filter(project=project)
+            except Project.DoesNotExist:
                 return queryset.none()
 
         return queryset

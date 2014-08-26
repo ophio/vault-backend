@@ -11,7 +11,7 @@ from api.serializers import PlatformSerializer, ProjectSerializer, ProjectCreate
 
 from api.viewsets import UUIDModelViewset, UUIDReadOnlyModelViewset
 
-from api.filters import PlatformFilterBackend, LibraryFilterBackend, LibraryVersionFilterBackend
+from api.filters import PlatformFilterBackend, LibraryFilterBackend, LibraryVersionFilterBackend, DeveloperFilterBackend, ProjectFilterBackend
 
 from core.models import Platform, Project, Developer, Library, LibraryVersion, Post
 
@@ -139,7 +139,8 @@ class PostViewSet(UUIDModelViewset):
     model = Post
     serializer_class = PostSerializer
     permission_classes = ((permissions.AllowAny),)
-    filter_backends = (PlatformFilterBackend, LibraryFilterBackend, LibraryVersionFilterBackend)
+    filter_backends = (PlatformFilterBackend, LibraryFilterBackend, LibraryVersionFilterBackend, DeveloperFilterBackend, ProjectFilterBackend)
+    search_fields = ('description')
     paginate_by = 20
 
     def create(self, request, *args, **kwargs):
