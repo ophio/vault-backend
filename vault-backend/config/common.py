@@ -12,6 +12,10 @@ from configurations import Configuration, values
 
 BASE_DIR = dirname(dirname(__file__))
 
+import dotenv
+
+dotenv.load_dotenv(os.path.join(BASE_DIR, ".env"))
+
 
 # Common Configurations
 # ==============================================================================
@@ -77,7 +81,7 @@ class Common(Configuration):
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
     # Note: This key only used for development and testing.
     #       In production, this is changed to a values.SecretValue() setting
-    SECRET_KEY = "CHANGEME_TO_SOME_S3CRET_VALUE!!!"
+    SECRET_KEY = values.SecretValue(environ=True, environ_name='SECRET_KEY', environ_prefix='DJANGO')
     # END SECRET CONFIGURATION
 
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-FIXTURE_DIRS

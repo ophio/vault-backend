@@ -50,7 +50,8 @@ class Development(Common):
 
     # DATABASE CONFIGURATION
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
-    DATABASES = values.DatabaseURLValue('postgres://vault:vault@localhost/vault_backend')
+
+    DATABASES = values.DatabaseURLValue(environ=True, environ_name='DATABASE_URL', environ_prefix='DJANGO')
     # END DATABASE CONFIGURATION
 
     # Your local stuff: Below this line define 3rd party libary settings

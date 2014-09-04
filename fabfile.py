@@ -10,6 +10,7 @@ from fabric.api import local, env, lcd
 ROOT = abspath(join(dirname(__file__)))
 
 env.project = 'vault-backend'
+env.django_path = 'vault-backend/'
 
 
 def init(vagrant=True):
@@ -61,3 +62,11 @@ def makemigration(app):
     '''Generate a south migration for an application'''
     manage('schemamigration %s --auto' % app)
     manage('migrate %s --noinput' % app)
+
+def config(action=None,key=None,value=None):
+    command = env.django_path + "dotenv.py "
+    command += env.django_path + ".env "
+    command += action + " " if action else ""
+    command += key + " " if key else ""
+    command += value + " " if value else ""
+    local('python {}'.format(command))
