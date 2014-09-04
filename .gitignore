@@ -71,3 +71,6 @@ celerybeat-schedule
 
 # Vagrant
 .vagrant
+
+# Environment Configuration
+.env
